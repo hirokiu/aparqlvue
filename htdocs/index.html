@@ -67,9 +67,9 @@
                     <div class="bbs-categorybox">
                     </div>
                 </div>
-                <div id="bbs-infobox" class="clearfix" v-if="article.bumon"><a :href=`./index.html#/${article.bumon_name.value}` target="_top">
+                <div id="bbs-infobox" class="clearfix" v-if="article.bumon"><a :href=`./index.html#/${article.item_name.value}` target="_top">
                     <div class="bbs-titlebox">
-                        <h4>{{article.bumon_name.value}}</h4>
+                        <h4>{{article.item_name.value}}</h4>
                         <h4>{{article.bumon.value}}</h4>
                         <span v-if="article.desc">
                             <h5>{{article.desc.value}}</h5>

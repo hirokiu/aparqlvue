@@ -106,26 +106,29 @@ const base_query = `?default-graph-uri=
 let bu_all_query = `
 SELECT DISTINCT * WHERE {
     <http://kojiruien.kgraph.jp/collection/古事類苑> dcterms:hasPart ?bumon .
-    ?bumon rdfs:label ?bumon_name .
+    ?bumon rdfs:label ?bu_name .
     OPTIONAL {
         ?bumon dc:description ?desc .
     }
+    BIND(CONCAT(?bu_name) as ?item_name)
 } ORDER BY ?bumon
 `.replace(/\r?\n/g, '');
 
 let mon_all_query = `
 SELECT DISTINCT * WHERE {
-    <http://kojiruien.kgraph.jp/collection/${params[0]}> dcterms:hasPart ?bumon .
-    ?bumon rdfs:label ?bumon_name .
+    <http://kojiruien.kgraph.jp/collection/${params[0]}> dcterms:hasPart ?bumon ;
+        rdfs:label ?bu_name .
+    ?bumon rdfs:label ?kou_name .
     OPTIONAL {
         ?bumon dc:description ?desc .
     }
+    BIND(CONCAT(?bu_name,"/",?kou_name) as ?item_name)
 } ORDER BY ?bumon
 `.replace(/\r?\n/g, '');
 
 let kou_all_query = `
 SELECT DISTINCT * WHERE {
-    <http://kojiruien.kgraph.jp/collection/${params[0]}/${params[1]}> sokos:narrower ?kou .
+    <http://kojiruien.kgraph.jp/collection/${params[0]}/${params[1]}> skos:narrower ?kou .
     ?kou rdfs:label ?kou_name .
     OPTIONAL {
         ?kou dc:description ?desc .
@@ -306,6 +309,136 @@ else if ( params.length == 1) {
             const queries = ref(null);
             let sparql_query = endpoint + base_query + encodeURIComponent(mon_all_query);
             console.log(params[0] + "の取得");
+            console.log(sparql_query)
+            const sortArticle = async () => {
+                let result;
+                result = await fetch( sparql_query );
+                result = await result.json();
+                console.log(result.results.bindings);
+                filteredPosts.value = result.results.bindings;
+                articles.value = result.results.bindings;
+                queries.value = query_params;
+            }
+            onMounted( async () => {
+                await sortArticle();
+            })
+            return {
+                articles, queries, filteredPosts, filtered
+            }
+        },
+        mounted() {
+            //this.checkAllStatus();
+        },
+        methods: { // このapp内で使用する関数定義
+            // 日付フォーマットを変更
+            dateFormat: function (postDate) {
+                const date = new Date(postDate)
+                const year = date.getFullYear()
+                const month = date.getMonth() + 1
+                const day = date.getDate()
+                return year + '/' + month + '/' + day
+            },
+            resetSearch: function() {
+                this.selectedCategory = [];
+                this.selectedFaculty = [];
+                let savedFaculty;
+                savedFaculty = localStorage.getItem('savedFaculty');
+                if( (savedFaculty) && (!this.hasAll) ){
+                    this.selectedFaculty = savedFaculty;
+                }
+                this.saveFaculty = [];
+                this.searchKeywords = [];
+                this.filteredPosts = this.articles;
+            },
+            filterBbsPosts: function(){
+                this.filtered = this.articles;
+                let savedFaculty;
+                savedFaculty = localStorage.getItem('savedFaculty');
+
+                if ( (savedFaculty) && (savedFaculty != this.selectedFaculty) ){ // 新規にカテゴリを指定して取得
+                    let _category_id = this.categories[this.selectedFaculty];
+                    axios.get( api_postList + '?per_page=100&categpries=' + _category_id ).then(result => {
+                        this.articles = result.data;
+                        this.filtered = this.articles;
+                        this.hasAll = true;
+                    }).catch((error) => alert('正しくjsonデータが読み込まれていません。error:' + error
+                    )).finally( () => {
+                        let _category_id = this.categories[this.selectedFaculty];
+                        this.filtered = this.filtered.filter((item) => {
+                            if (item.categories.includes(_category_id)) {
+                                return true;
+                            }
+                            return false;
+                        });
+                        // OR検索
+                        if ( (this.selectedCategory) && (this.selectedCategory.length > 0) ) {
+                            this.filtered = this.filtered.filter((item) => {
+                                for (let i = 0; i < this.selectedCategory.length; i++) {
+                                    if (item.acf['カテゴリ'].includes(this.selectedCategory[i])) {
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            });
+                        }
+
+                        // LocalStorageに保存
+                        if(this.saveFaculty == 'saved'){
+                            this.savedFaculty = this.selectedFaculty;
+                            localStorage.setItem('savedFaculty', this.selectedFaculty);
+                        }
+                        this.saveFaculty = [];
+                        this.filteredPosts = this.filtered;
+                        return this.filteredPosts;
+                    });
+                } else {
+                    if ( (this.selectedFaculty) && (this.selectedFaculty.length > 0) ) { // 全データを持っている場合
+                        let _category_id = this.categories[this.selectedFaculty];
+                        this.filtered = this.filtered.filter((item) => {
+                            if (item.categories.includes(_category_id)) {
+                                return true;
+                            }
+                            return false;
+                        });
+                        // LocalStorageに保存
+                        if(this.saveFaculty == 'saved'){
+                            this.savedFaculty = this.selectedFaculty;
+                            localStorage.setItem('savedFaculty', this.selectedFaculty);
+                        }
+                    }
+
+                    // LocalStorageに保存
+                    this.saveFaculty = [];
+                    this.filteredPosts = this.filtered;
+                    return this.filteredPosts;
+                }
+            },
+        },
+        computed() { // ブラウザ側で変化があったら実行
+            // this.checkAllStatus();
+        },
+    })
+    catMonTable.mount("#bbsPostsList");
+}
+
+/*
+ * 項の取り出し
+ *
+ */
+else if ( params.length == 2) {
+    const catMonTable = createApp({
+        data() {
+            return {
+                searchKeywords: [],
+            }
+        },
+        setup() {
+            let filteredPosts = ref(null);
+            let filtered = ref(null);
+            const articles = ref(null);
+            const queries = ref(null);
+            let sparql_query = endpoint + base_query + encodeURIComponent(kou_all_query);
+            console.log(params[0] + " 部 / " + params[1] + " 門 の取得");
             console.log(sparql_query)
             const sortArticle = async () => {
                 let result;
