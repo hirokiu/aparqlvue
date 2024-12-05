@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>古事類苑LOD</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="./css/schemes.css">
+    <link rel="stylesheet" href="./css/stu-bbs-content.css">
+
+</head>
+
+<body>
+<!--wrap start-->
+<div class="Wrap ja"> 
+  
+  <!--header start--> 
+  <header class="header">
+  <div class="header-inner">
+    <div class="main-nav">
+      <div class="header-logo"></div>
+        <h1>古事類苑LOD</h1>
+      </a></div>
+    </div>
+  </div>
+</header>
+  <!--header end--> 
+  
+  <!--main start-->
+  <!--contents start-->
+    <div id="container" class="clfix" style="margin-bottom:0 !important;">
+    <div id="bbsPostsList" v-cloak><!--V-cloak-->
+    <div id="content" class="stu-bbs-list">
+      <div id="topicPath">
+      </div>
+      <div class="bbs-title">
+        <a href="/" target="_top">
+            <h1>古事類苑LOD</h1>
+        </a>
+      </div>
+	</div>
+    <div id="content">
+        <div class="bbs-header">
+            <div id="post-meta" class="clearfix">
+                    <span class="bbs-meta bbs-infotext">名称</span>
+                    <div class="bbs-isFlagged">
+                        <span class="bbs-infotext">件数</span>
+                    </div>
+            </div>
+            <span class="bbs-infotext">URI</span>
+            <span class="bbs-infotext">概要</span>
+        </div>
+
+        <section class="post-list">
+        <div v-if="!filteredPosts"><!-- ローディング -->
+            <div class="loader">Loading...</div>
+        </div>
+        <template v-else>
+            <!-- リスト-->
+            <article class="bbs-postbox clearfix" v-for="article in filteredPosts">
+                <div id="post-meta" class="clearfix">
+                    <div class="bbs-isFlagged">
+                    </div>
+                    <div class="bbs-categorybox">
+                    </div>
+                </div>
+                <div id="bbs-infobox" class="clearfix" v-if="article.bumon"><a :href=`./index.html#/${article.bumon_name.value}` target="_top">
+                    <div class="bbs-titlebox">
+                        <h4>{{article.bumon_name.value}}</h4>
+                        <h4>{{article.bumon.value}}</h4>
+                        <span v-if="article.desc">
+                            <h5>{{article.desc.value}}</h5>
+                        </span>
+                    </div>
+                </a></div>
+            </article>
+            <!-- /リスト-->
+        </template>
+        </section>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!--headline end--> 
+
+
+    <!--footer start--> 
+    <footer class="footer">
+      <div class="pagetop">
+        <p><a href="#"><img src="https://www.ynu.ac.jp/assets/images/icon-top.svg" alt="" width="16" height="16"></a></p>
+      </div>
+      <div class="inner-box">
+        <p class="copy">Copyright &#xa9;  All right reserved</p>
+      </div>
+    </footer>
+    <!--footer end-->
+  </div>
+  <!--contents end--> 
+</div>
+<!--wrap end--> 
+
+<!--js-->
+<script type="module" defer src="./js/app.js"></script>
+<!--js-->
+</body>
+</html>

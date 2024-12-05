@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>古事類苑</title>
+
+    <link rel="stylesheet" href="stylesheet/css/destyle.min.css">
+    <link rel="stylesheet" href="stylesheet/css/style.css">
+    <link rel="stylesheet" href="stylesheet/css/index.css">
+
+    <!-- JSON読み込み用 -->
+    <script src="https://unpkg.com/vue@next"></script><!-- Vue -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script><!-- axios -->
+    <script src="https://unpkg.com/vue-router@4"></script>
+    <script src="./js/app.js"></script>
+</head>
+<body>
+<header class="header">
+    <h1 class="header__title">
+        <a href="" class="header__title__link">
+            <span class="header__title__text">古事類苑</span>
+        </a>
+    </h1>
+
+    <nav class="header__navigation">
+        <a href="" class="header__navigation__link">統計ダッシュボード</a>
+        <a href="" class="header__navigation__link">地理空間情報と統計</a>
+    </nav>
+
+</header>
+
+<div class="search-navigation">
+    <div class="search-navigation__inner">
+        <form action="" class="search-navigation__form">
+            <input type="search" placeholder="検索キーワードを入力" class="search-navigation__search">
+        </form>
+        <nav class="search-navigation__nav">
+            <a href="" class="search-navigation__nav__link current">政府統計一覧</a>
+            <a href="統計分野から探す/index.html" class="search-navigation__nav__link">分野から探す</a>
+            <a href="" class="search-navigation__nav__link">主な指標から探す</a>
+        </nav>
+    </div>
+    <div class="search-navigation__inner">
+        <div class="search-navigation__lang">
+            Language: 日本語
+        </div>
+    </div>
+</div>
+
+<main class="main index">
+    <nav class="index__side-menu">
+        <section class="index__side-menu__box">
+            <h2 class="index__side-menu__box__title">統計分野</h2>
+            <a href="/index.html#/?theme=国土・気象" class="index__side-menu__box__link">国土・気象</a>
+            <a href="/index.html#/?theme=人口・世帯" class="index__side-menu__box__link">人口・世帯</a>
+            <a href="/index.html#/?theme=農林水産業" class="index__side-menu__box__link">農林水産業</a>
+            <a href="/index.html#/?theme=農林水産業" class="index__side-menu__box__link">農林水産業</a>
+            <a href="/index.html#/?theme=鉱工業" class="index__side-menu__box__link">鉱工業</a>
+            <a href="/index.html#/?theme=商業・サービス業" class="index__side-menu__box__link">商業・サービス業</a>
+            <a href="/index.html#/?theme=企業・家計・経済" class="index__side-menu__box__link">企業・家計・経済</a>
+            <a href="/index.html#/?theme=住宅・土地・建設" class="index__side-menu__box__link">住宅・土地・建設</a>
+            <a href="/index.html#/?theme=エネルギー・水" class="index__side-menu__box__link">エネルギー・水</a>
+            <a href="/index.html#/?theme=運輸・観光" class="index__side-menu__box__link">運輸・観光</a>
+            <a href="/index.html#/?theme=情報通信・科学技術" class="index__side-menu__box__link">情報通信・科学技術</a>
+            <a href="/index.html#/?theme=教育・文化・スポーツ・生活" class="index__side-menu__box__link">教育・文化・スポーツ・生活</a>
+            <a href="/index.html#/?theme=行財政" class="index__side-menu__box__link">行財政</a>
+            <a href="/index.html#/?theme=司法・安全・環境" class="index__side-menu__box__link">司法・安全・環境</a>
+            <a href="/index.html#/?theme=社会保障・衛生" class="index__side-menu__box__link">社会保障・衛生</a>
+            <a href="/index.html#/?theme=国際" class="index__side-menu__box__link">国際</a>
+            <a href="/index.html#/?theme=その他" class="index__side-menu__box__link">その他</a>
+        </section>
+
+        <section class="index__side-menu__box">
+            <h2 class="index__side-menu__box__title">統計の種類</h2>
+            <input id="checkbox01" type="checkbox" class="index__side-menu__box__checkbox">
+            <label for="checkbox01" class="label">
+                <span class="label__text">基幹統計</span>
+                <span class="label__num">64</span>
+            </label>
+
+            <input id="checkbox02" type="checkbox" class="index__side-menu__box__checkbox">
+            <label for="checkbox02" class="label">
+                <span class="label__text">一般統計</span>
+                <span class="label__num">256</span>
+            </label>
+
+            <input id="checkbox03" type="checkbox" class="index__side-menu__box__checkbox">
+            <label for="checkbox03" class="label">
+                <span class="label__text">業務統計</span>
+                <span class="label__num">174</span>
+            </label>
+
+            <input id="checkbox04" type="checkbox" class="index__side-menu__box__checkbox">
+            <label for="checkbox04" class="label">
+                <span class="label__text">加工統計</span>
+                <span class="label__num">46</span>
+            </label>
+
+            <input id="checkbox05" type="checkbox" class="index__side-menu__box__checkbox">
+            <label for="checkbox05" class="label">
+                <span class="label__text">その他</span>
+                <span class="label__num">44</span>
+            </label>
+        </section>
+
+        <section class="index__side-menu__box">
+            <h2 class="index__side-menu__box__title">調査年</h2>
+            <div class="index__side-menu__box__period">
+                <div class="index__side-menu__box__period__item">
+                    <label for="select01" class="c-small-label">From</label>
+                    <select name="from" id="select01" class="index__side-menu__box__select">
+                        <option value="">1999</option>
+                    </select>
+                </div>
+                <span class="from-to">～</span>
+                <div class="index__side-menu__box__period__item">
+                    <label for="select02" class="c-small-label">To</label>
+                    <select name="from" id="select02" class="index__side-menu__box__select">
+                        <option value="">1999</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section class="index__side-menu__box">
+            <h2 class="index__side-menu__box__title">統計の種類</h2>
+            <input id="radio01" name="type" type="radio" class="index__side-menu__box__radio" checked>
+            <label for="radio01" class="label">
+                <span class="label__text">すべて</span>
+                <span class="label__num">692</span>
+            </label>
+
+            <input id="radio02" name="type" type="radio" class="index__side-menu__box__radio">
+            <label for="radio02" class="label">
+                <span class="label__text">全国</span>
+                <span class="label__num">317</span>
+            </label>
+
+            <input id="radio03" name="type" type="radio" class="index__side-menu__box__radio">
+            <label for="radio03" class="label">
+                <span class="label__text">都道府県</span>
+                <span class="label__num">120</span>
+            </label>
+
+            <input id="radio04" name="type" type="radio" class="index__side-menu__box__radio">
+            <label for="radio04" class="label">
+                <span class="label__text">市区町村</span>
+                <span class="label__num">36</span>
+            </label>
+        </section>
+    </nav>
+
+    <span id="datasetTable" v-cloak><!-- v-cloak -->
+    <section class="index__contents">
+        <h2 class="c-page-title">政府統計一覧</h2>
+        <span v-if="articles && articles.length">
+        <div class="index__contents__header">
+            <span v-if="queries.theme && queries.theme.length">
+                <p class="results-count">対象の統計分野：{{queries.theme}}</p>
+            </span>
+            <span v-if="queries.type && queries.type.length">
+                <p class="results-count">対象の統計の種類：{{queries.type}}</p>
+            </span>
+            <p class="results-count">{{articles.length}} 件の調査</p>
+            <div class="sort">
+                <label for="sort" class="c-small-label">並べ替え</label>
+                <select name="sort" id="sort" class="sort__select">
+                    <option value="">公表日</option>
+                </select>
+            </div>
+        </div>
+        </span>
+        <span v-else>
+        <div class="index__contents__header">
+            <p class="results-count">0 件の調査</p>
+        </div>
+        </span>
+
+
+        <div class="index__contents__list">
+            <div v-for="article in articles">
+            <article class="index__contents__list__item">
+                <div class="index__contents__list__item__header">
+                    <span class="icon">
+                        <img src="images/icon-cas.png" alt="アイコン：内閣官房" class="icon__image">
+                    </span>
+                    <a href="" class="link">{{article.universe.value}}</a>
+                    <p class="number">{{article.dataset_id.value}}</p>
+                </div>
+                <h3 class="index__contents__list__item__title">
+                    <a :href="'統計調査/index.html#/' + article.dataset_id.value + '/'">{{article.title.value}}</a>
+                </h3>
+                <div class="categories">
+                    <a href="" class="categories__item">{{article.theme.value}}</a>
+                    <a href="" class="categories__item">{{article.theme.value}}</a>
+                </div>
+                <p class="index__contents__list__item__date">
+                    <time datetime="2014-09-25" class="date">2014年9月25日</time>
+                    <span class="type">公表</span>
+                </p>
+            </article>
+
+        </div>
+
+        </div>
+
+        <span v-if="articles && articles.length">
+        <nav class="pagination">
+            <button class="pagination__link prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="7.41" height="12" viewBox="0 0 7.41 12">
+                    <path d="M16,16.58,11.42,12,16,7.41,14.59,6l-6,6,6,6Z" transform="translate(-8.59 -6)" fill="#7c7c7c"/>
+                </svg>
+            </button>
+            <span class="pagination__link current">1</span>
+            <a class="pagination__link">2</a>
+            <a class="pagination__link">3</a>
+            <span class="pagination__dots">…</span>
+            <a class="pagination__link">13</a>
+            <a class="pagination__link">14</a>
+            <a class="pagination__link">15</a>
+            <button class="pagination__link next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="7.41" height="12" viewBox="0 0 7.41 12">
+                    <path d="M8.59,16.58,13.17,12,8.59,7.41,10,6l6,6-6,6Z" transform="translate(-8.59 -6)" fill="#7c7c7c"/>
+                </svg>
+            </button>
+        </nav>
+        </span>
+    </section>
+    </span><!-- /v-loak -->
+</main>
+
+<footer class="footer">
+    <h2 class="footer__title">
+        <span class="footer__title__text">政府統計の総合窓口</span>
+    </h2>
+    <nav class="footer__navigation">
+        <dl class="footer__navigation__list">
+            <div class="footer__navigation__list__item">
+                <dt class="heading">統計データを探す</dt>
+                <dd class="links">
+                    <a href="" class="links__link">政府統計データ一覧</a>
+                    <a href="" class="links__link">分野から探す</a>
+                    <a href="" class="links__link">主な指標から探す</a>
+                </dd>
+            </div>
+            <div class="footer__navigation__list__item">
+                <dt class="heading">統計データの活用</dt>
+                <dd class="links">
+                    <a href="" class="links__link">統計ダッシュボード</a>
+                    <a href="" class="links__link">地理空間情報</a>
+                    <a href="" class="links__link">ミクロデータ</a>
+                    <a href="" class="links__link">データーベース</a>
+                    <a href="" class="links__link">API</a>
+                    <a href="" class="links__link">技術情報</a>
+                </dd>
+            </div>
+
+            <div class="footer__navigation__list__item">
+                <dt class="heading">統計関連情報</dt>
+                <dd class="links">
+                    <a href="" class="links__link">統計に用いる分類・用語</a>
+                    <a href="" class="links__link">各種コードの解説</a>
+                    <a href="" class="links__link">調査項目</a>
+                    <a href="" class="links__link">調査計画／点検・評価結果</a>
+                    <a href="" class="links__link">行政記録情報等を活用している統計</a>
+                </dd>
+            </div>
+
+            <div class="footer__navigation__list__item">
+                <dt class="heading">リンク集</dt>
+                <dd class="links">
+                    <a href="" class="links__link">統計を知る・学ぶ</a>
+                    <a href="" class="links__link">統計関係リンク集</a>
+                </dd>
+            </div>
+        </dl>
+    </nav>
+
+    <nav class="footer__other-navigation">
+        <a href="" class="footer__other-navigation__link">このサイトについて</a>
+        <a href="" class="footer__other-navigation__link">利用規約</a>
+        <a href="" class="footer__other-navigation__link">プライバシーポリシー</a>　　　
+    </nav>
+</footer>
+
+<!-- Script -->
+<script type="module" defer>
+import {
+    createApp,
+    ref,
+    onMounted,
+} from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+// 1. Define route components.
+// These can be imported from other files
+const Home = { template: '<div>Home</div>' }
+const About = { template: '<div>About</div>' }
+const dataset = { template: '<div>統計調査</div>' }
+const tabular = { template: '<div>提供統計</div>' }
+const stats = { template: '<div>統計表</div>' }
+
+// 2. Define some routes
+// Each route should map to a component.
+// We'll talk about nested routes later.
+const routes = [
+    { path: '/', component: Home },
+    { path: '/:dataset', component: dataset },
+    { path: '/:dataset/:tabular', component: tabular },
+    { path: '/:dataset/:tabular/:stats', component: stats },
+]
+
+// 3. Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
+const router = VueRouter.createRouter({
+    // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
+    history: VueRouter.createWebHashHistory(),
+    routes, // short for `routes: routes`
+})
+
+export default {
+    computed: {
+    statsId() {
+        return this.$route.params.stats;
+    },
+    tabularId() {
+        return this.$route.params.tabular;
+    },
+    datasetId() {
+        return this.$route.params.dataset;
+    },
+    },
+    methods: {
+    goToDashboard() {
+        if (isAuthenticated) {
+        this.$router.push('/dashboard')
+        } else {
+        this.$router.push('/login')
+        }
+    },
+    },
+}
+
+function getQueryStr() {
+    let _url = location.href;
+    const url   = new URL(_url.replace(/#/g,''));
+    console.log(url);
+    let params = url.searchParams;
+    console.log(params);
+    let paramsArray = [];
+        params.forEach(function(value,key){
+            console.log(key);
+            paramsArray.push(key);
+            paramsArray[key] = value;
+        });
+    var values = [];
+    if (paramsArray["theme"])　{
+        values["theme"] = paramsArray["theme"];
+    }
+    if (paramsArray["type"])　{
+        values["type"] = paramsArray["type"];
+    }
+    console.log(values);
+    return values;
+}
+
+function getParam() {
+    let url   = location.href;
+    let params    = url.split("/");
+    let paramsArray = [];
+    for ( let i = 0; i < params.length; i++ ) {
+        console.log(params[i])
+    }
+    var values = [];
+    values['datasetId'] = params[5];
+    values['tabularId'] = params[6];
+    values['statsId'] = params[7];
+    return values;
+}
+
+// URLの解析
+let url = location.href;
+let idx = url.indexOf("/");
+let params = [];
+if(idx != -1) {
+    params = getParam();
+}
+console.log(params);
+
+// 検索クエリの取得
+let query_params = getQueryStr();
+
+let theme_query = `
+OPTIONAL {
+        ?s dcat:theme ?theme .
+    }
+`;
+if ( "theme" in query_params ){
+theme_query = `
+    ?s dcat:theme "${query_params["theme"]}".
+    BIND("${query_params["theme"]}" AS ?theme)
+`
+}
+
+let type_query = `
+OPTIONAL {
+        ?s dct:type ?type .
+    }
+`;
+if ( "type" in query_params ){
+type_query = `
+    ?s dct:type "${query_params["type"]}" .
+    BIND("${query_params["type"]}" AS ?type)
+`;
+}
+
+
+if( query_params.length > 0 ){
+    // 検索モード
+}
+
+const endpoint = 'http://localhost:8890/sparql';
+const base_query = `?default-graph-uri=
+&format=application%2Fsparql-results%2Bjson
+&timeout=0
+&signal_void=on
+&query=
+`.replace(/\r?\n/g, '');
+
+let dataset_query = `
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix schema: <http://schema.org/>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix estat: <http://estat.dev/schema#>
+prefix disco: <http://rdf-vocabulary.ddialliance.org/discovery#>
+
+SELECT DISTINCT * WHERE {
+    ?s a estat:統計調査;
+        dct:identifier ?dataset_id ;
+        dct:accrualPeriodicity ?cycle ;
+        foaf:homepage ?homepage ;
+        disco:universe ?universe ;
+        dct:title ?title .
+    ${theme_query}
+    ${type_query}
+    OPTIONAL {
+            ?s dct:temporal ?temporal .
+    }
+     OPTIONAL {
+            ?s dct:spatial ?spatial .
+    }
+}
+`.replace(/\r?\n/g, '');
+
+
+console.log(base_query + dataset_query)
+let query = endpoint + base_query + encodeURIComponent(dataset_query);
+console.log(query)
+// const jsonUrl = 'http://localhost:8890/sparql?default-graph-uri=&query=prefix+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0Aprefix+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+%0D%0Aprefix+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0Aprefix+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0Aprefix+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0Aprefix+schema%3A+%3Chttp%3A%2F%2Fschema.org%2F%3E%0D%0Aprefix+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0Aprefix+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E%0D%0Aprefix+dct%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E%0D%0Aprefix+estat%3A+%3Chttp%3A%2F%2Festat.dev%2Fschema%23%3E%0D%0A%0D%0ASELECT+DISTINCT+*+WHERE+%7B%0D%0A%3Fs+dct%3Aidentifier+' + params['statsId'] + '%3B%0D%0A++++dct%3Atitle+%3Ftitle%3B%0D%0A%09dct%3Aissued+%3Fopenday+%3B%0D%0A%09dct%3Amodified++%3Fmodified%3B%0D%0A%09dct%3Aspatial+%3Fspatial+%3B%0D%0A%09dct%3Atemporal+%3Ftemporal+%3B%0D%0A%09dcat%3Atheme+%3Ftheme1+%3B%0D%0A%09dct%3AisPartOf+%3FpartOf+.%0D%0A%7D&format=application%2Fsparql-results%2Bjson&timeout=0&signal_void=on'
+
+const datasetTable = createApp({
+    setup() {
+    const articles = ref(null);
+    const queries = ref(null);
+    const sortArticle = async () => {
+        let result;
+        result = await fetch( query );
+        result = await result.json();
+        articles.value = result.results.bindings;
+        console.log(articles);
+        console.log(query_params);
+        queries.value = query_params;
+        console.log(queries);
+
+    }
+    onMounted( async () => {
+        await sortArticle();
+    })
+    return {
+        articles, queries
+    }
+    }
+})
+
+//statsTable.use(router);
+datasetTable.mount("#datasetTable");
+
+
+
+</script>
+
+</body>
+</html>
