@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="./css/schemes.css">
-    <link rel="stylesheet" href="./css/stu-bbs-content.css">
+    <link rel="stylesheet" href="./css/content.css">
 
 </head>
 
@@ -22,8 +22,8 @@
   <div class="header-inner">
     <div class="main-nav">
       <div class="header-logo"></div>
-        <h1>古事類苑LOD</h1>
-      </a></div>
+        <!-- <h1>古事類苑LOD</h1>
+      </div> --> -->
     </div>
   </div>
 </header>
@@ -34,24 +34,30 @@
     <div id="container" class="clfix" style="margin-bottom:0 !important;">
     <div id="bbsPostsList" v-cloak><!--V-cloak-->
     <div id="content" class="stu-bbs-list">
-      <div id="topicPath">
-      </div>
       <div class="bbs-title">
         <a href="/" target="_top">
             <h1>古事類苑LOD</h1>
         </a>
       </div>
+      <!-- <div id="topicPath" v-if="!filteredPosts">
+        <a href="/" target="_top">
+        </a>
+      </div> -->
 	</div>
     <div id="content">
         <div class="bbs-header">
             <div id="post-meta" class="clearfix">
                     <span class="bbs-meta bbs-infotext">名称</span>
-                    <div class="bbs-isFlagged">
+                    <!-- <div class="bbs-isFlagged">
                         <span class="bbs-infotext">件数</span>
-                    </div>
+                    </div> -->
             </div>
-            <span class="bbs-infotext">URI</span>
-            <span class="bbs-infotext">概要</span>
+            <div id="post-meta" class="clearfix">
+                <span class="bbs-infotext">URI</span>
+            </div>
+            <div id="post-meta" class="clearfix">
+                <span class="bbs-infotext">概要・引用</span>
+            </div>
         </div>
 
         <section class="post-list">
@@ -67,12 +73,21 @@
                     <div class="bbs-categorybox">
                     </div>
                 </div>
-                <div id="bbs-infobox" class="clearfix" v-if="article.bumon"><a :href=`./index.html#/${article.item_name.value}` target="_top">
+                <div id="bbs-infobox" class="clearfix" v-if="article.item"><a :href=`./index.html?/${article.link_name.value}` target="_top">
                     <div class="bbs-titlebox">
-                        <h4>{{article.item_name.value}}</h4>
-                        <h4>{{article.bumon.value}}</h4>
+                        <h4>{{article.link_name.value}}</h4>
+                        <h4>{{article.item.value}}</h4>
                         <span v-if="article.desc">
-                            <h5>{{article.desc.value}}</h5>
+                            <h5>説明：{{article.desc.value}}</h5>
+                        </span>
+                        <span v-if="article.ref">
+                            <h5>文献：{{article.ref.value}}</h5>
+                            <span v-if="article.text">
+                                <h5 style="font-style: italic;">引用：{{article.text.value}}</h5>
+                            </span>
+                        </span>
+                        <span v-if="article.moku">
+                            <h5>目があります</h5>
                         </span>
                     </div>
                 </a></div>
@@ -94,7 +109,7 @@
         <p><a href="#"><img src="https://www.ynu.ac.jp/assets/images/icon-top.svg" alt="" width="16" height="16"></a></p>
       </div>
       <div class="inner-box">
-        <p class="copy">Copyright &#xa9;  All right reserved</p>
+        <p class="copy">Copyright &#xa9; hiroki_u All right reserved</p>
       </div>
     </footer>
     <!--footer end-->

@@ -5,10 +5,12 @@
  */
 body {
     text-align: left;
+    background: rgb(229, 224, 210);
 }
 
 header.header {
-    background-color: rgba(1,91,177,0.9);
+    /* background-color: rgba(30,155,60,0.9); */
+    background-color: rgba(132, 103, 186, 0.9);
 }
 
 header .main-nav ul li {
@@ -17,12 +19,12 @@ header .main-nav ul li {
 
 header .sab-nav-wrap {
     background: transparent;
-    background-color: rgba(1,91,177,0.9);
+    background-color: rgba(132, 103, 186, 0.9);
 }
 
 #container {
     margin-top: 68px;
-    background: #FFF;
+    background: rgb(229, 224, 210);
     padding: 0;
 }
 
@@ -68,10 +70,10 @@ header .sab-nav-wrap {
     font-weight: bold;
     line-height: 1.2;
     text-decoration: none;
-    color: rgba(1,91,177,0.9);
+    color: rgba(96, 62, 160,0.9);
 }
 #content .bbs-title a {
-    color: rgba(1,91,177,0.9);
+    color: rgba(96, 62, 160,0.9);
     text-decoration: none;
     /* position: absolute; */
     /* width: 100%; */
@@ -117,12 +119,14 @@ header .sab-nav-wrap {
 
 #content .bbs-postbox:hover {
     /* border: #333333 solid 0.5px; */
-    background: rgba(224,235,246,1);
+    /* background: rgba(224,235,246,1); */
+    background: rgb(229, 224, 210);
 }
 #content .bbs-postbox {
     display: block;
     height: auto;
-    background-color: #F1F4F5;
+    /* background-color: #F1F4F5; */
+    background: rgb(229, 224, 210);
     padding: 10px 5px 0px;
     border-bottom: #999999 solid 1px;
 }
@@ -157,7 +161,7 @@ header .sab-nav-wrap {
 }
 
 #content .post-attached {
-    border: rgba(1,91,177,0.9) solid 1px;
+    border: rgba(96, 62, 160,0.9) solid 1px;
     margin : 5px;
     padding : 2px;
 }
@@ -211,7 +215,7 @@ header .sab-nav-wrap {
     margin: 10px -10px 0px;
     min-height: 14px;
     display: block;
-    background: rgba(200,160,50,0.9);
+    background: rgba(96, 62, 160, 0.9);
     color: #F1F4F5;
     font-weight: bold;
 }
