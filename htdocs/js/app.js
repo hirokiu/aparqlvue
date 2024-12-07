@@ -189,6 +189,23 @@ SELECT DISTINCT * WHERE {
 } GROUP BY ?item ORDER BY ?item
 `.replace(/\r?\n/g, '');
 
+let ref_kou_all_query = `
+SELECT DISTINCT * WHERE {
+    <http://kojiruien.kgraph.jp/collection/古事類苑> dcterms:hasPart ?bu .
+    ?bu rdfs:label ?bu_name ;
+        dcterms:hasPart ?mon .
+    ?mon rdfs:label ?mon_name ;
+         skos:narrower ?item .
+    ?item rdfs:label ?item_name .
+    OPTIONAL {
+        ?item dcterms:references ?ref .
+        ?ref schema:Text ?text .
+    }
+    FILTER( CONTAINS( str(?ref), "${params[1]}") )
+    BIND(CONCAT(?bu_name,"/",?mon_name,"/",?item_name) as ?link_name)
+} ORDER BY ?bu
+`.replace(/\r?\n/g, '');
+
 let mon_query = `
 prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -491,6 +508,9 @@ else if ( params.length == 2) {
             const articles = ref(null);
             const queries = ref(null);
             let sparql_query = endpoint + base_query + encodeURIComponent(kou_all_query);
+            if( params[0] == "reference" ){
+                sparql_query = endpoint + base_query + encodeURIComponent(ref_kou_all_query);
+            }
             console.log(params[0] + " 部 / " + params[1] + " 門 の取得");
             console.log(sparql_query)
             const sortArticle = async () => {
