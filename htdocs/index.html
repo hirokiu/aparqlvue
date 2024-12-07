@@ -46,6 +46,15 @@
         <span> / </span>
         <span><a href="https://hackmd.io/@hrku/HJ1Qlwy50" target="_blank">SPARQLクエリ習作</a></span>
       </div>
+      <hr>
+        <div v-if="queries">
+            <h3>
+                <span v-if="queries[0]">
+                    <a :href=`./` target="_top">部一覧</a> &gt; <a :href=`./index.html?/${queries[0]}` target="_top">{{queries[0]}}</a></span>
+                <span v-if="queries[1]"> &gt; <a :href=`./index.html?/${queries[0]}/${queries[1]}` target="_top">{{queries[1]}}</a></span>
+                <span v-if="queries[2]"> &gt; <a :href=`./index.html?/${queries[0]}/${queries[1]}/${queries[2]}` target="_top">{{queries[2]}}</a></span>
+            </h3>
+        </div>
 	</div>
     <div id="content">
         <div class="bbs-header">
@@ -76,9 +85,10 @@
                     <div class="bbs-categorybox">
                     </div>
                 </div>
-                <div id="bbs-infobox" class="clearfix" v-if="article.item"><a :href=`./index.html?/${article.link_name.value}` target="_top">
+                <div id="bbs-infobox" class="clearfix" v-if="article.item">
+                    <a :href=`./index.html?/${article.link_name.value}` target="_top">
                     <div class="bbs-titlebox">
-                        <h4>{{article.link_name.value}}</h4>
+                        <h4>{{article.item_name.value}}</h4>
                         <h4>{{article.item.value}}</h4>
                         <span v-if="article.desc">
                             <h5>説明：{{article.desc.value}}</h5>
@@ -93,7 +103,8 @@
                             <h5>目があります</h5>
                         </span>
                     </div>
-                </a></div>
+                    </a>
+                </div>
             </article>
             <!-- /リスト-->
         </template>

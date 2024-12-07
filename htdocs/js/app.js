@@ -370,7 +370,7 @@ else if ( params.length == 1) {
                 console.log(result.results.bindings);
                 filteredPosts.value = result.results.bindings;
                 articles.value = result.results.bindings;
-                queries.value = query_params;
+                queries.value = params;
             }
             onMounted( async () => {
                 await sortArticle();
@@ -500,7 +500,7 @@ else if ( params.length == 2) {
                 console.log(result.results.bindings);
                 filteredPosts.value = result.results.bindings;
                 articles.value = result.results.bindings;
-                queries.value = query_params;
+                queries.value = params;
             }
             onMounted( async () => {
                 await sortArticle();
@@ -630,7 +630,7 @@ else if ( params.length == 3) {
                 console.log(result.results.bindings);
                 filteredPosts.value = result.results.bindings;
                 articles.value = result.results.bindings;
-                queries.value = query_params;
+                queries.value = params;
             }
             onMounted( async () => {
                 await sortArticle();
@@ -779,7 +779,7 @@ const postTable = createApp({
             result = await fetch( api_postList );
             result = await result.json();
             articles.value = [result];
-            queries.value = query_params;
+            queries.value = params;
         }
         onMounted( async () => {
             await setAuthors();
