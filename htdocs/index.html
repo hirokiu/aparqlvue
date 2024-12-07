@@ -48,7 +48,7 @@
       </div>
       <hr>
       <div id="topicPath">
-        <h4>参考文献，引用書からの検索</h4>
+        参考文献，引用書からの検索：
         <span><a href="./index.html?/reference/拾遺和歌集" target="_top">拾遺和歌集を参考文献に含む項</a></span>
         <span> / </span>
         <span><a href="./index.html?/reference/万葉集" target="_top">万葉集を参考文献に含む項</a></span>
@@ -59,7 +59,7 @@
         <div v-if="queries">
             <h3>
                 <span v-if="queries[0]">
-                    <a :href=`./` target="_top">部一覧</a> &gt; <a :href=`./index.html?/${queries[0]}` target="_top">{{queries[0]}}</a></span>
+                    <a :href=`./` target="_top">TOP</a> &gt; <a :href=`./index.html?/${queries[0]}` target="_top">{{queries[0]}}</a></span>
                 <span v-if="queries[1]"> &gt; <a :href=`./index.html?/${queries[0]}/${queries[1]}` target="_top">{{queries[1]}}</a></span>
                 <span v-if="queries[2]"> &gt; <a :href=`./index.html?/${queries[0]}/${queries[1]}/${queries[2]}` target="_top">{{queries[2]}}</a></span>
             </h3>
